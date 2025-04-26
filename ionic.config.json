@@ -1,0 +1,7 @@
+{
+  "name": "api_clima",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
