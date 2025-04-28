@@ -23,15 +23,37 @@
   </nav>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  
+<ion-content [fullscreen]="true" class="ion-padding">
   <div class="container vh-100 d-flex justify-content-center align-items-center">
-    <div class="card rounded" style="width: 18rem;">
-      <img src="assets/icon/clima.png" class="card-img-top" alt="...">
+    <div class="card rounded" style="width: 20rem;">
+      <img src="assets/icon/clima.png" class="card-img-top" alt="Clima">
       <div class="card-body bg-secondary text-white">
-        <h5 class="card-title">Ver clima</h5>
-        <p class="card-text">En este apartado puedes ver como está el clima</p>
-        <a [routerLink]="['/clima']" class="btn btn-primary w-100">Ir</a>
+
+        <h5 class="card-title">Consultar Clima</h5>
+
+        <!-- Input para ingresar ciudad -->
+        <ion-item>
+          <ion-label position="floating">Ciudad</ion-label>
+          <ion-input [(ngModel)]="city" type="text"></ion-input>
+        </ion-item>
+
+        <!-- Botón para buscar clima -->
+        <ion-button expand="block" color="primary" (click)="getWeatherData()">
+          Buscar
+        </ion-button>
+
+        <!-- Mostrar datos del clima -->
+        <div *ngIf="weatherData" class="mt-3">
+          <p>Temperatura: {{ weatherData.current.temp_c }} °C</p>
+          <p>Descripción: {{ weatherData.current.condition.text }}</p>
+          <p>Humedad: {{ weatherData.current.humidity }}%</p>
+          <p>Viento: {{ weatherData.current.wind_kph }} km/h</p>
+        </div>
+
+        <div *ngIf="!weatherData && cityConsulted">
+          <p class="mt-3"> No se encontraron datos para "{{ city }}"</p>
+        </div>
+
       </div>
     </div>
   </div>
